@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <GL/gl.h>
-#include <GL/glut.h>
-#include <GL/glu.h>
-
 /*
 Kelas IF-9
 Nama:
@@ -11,105 +6,179 @@ Nama:
      3. 10108439 - R. Adzie Ramadani Kusumah
      4. 10108445 - Alfiyah 
 */
+#include <Windows.h>
+#include <GL/gl.h>
+#include <GL/glut.h>
 
-static int a = 0;
+static int spin=0;
+static float lampu = 0.0;
 
-void displayKepala(void)
+void display(void)
 {
-	glMatrixMode(GL_PROJECTION); // set the view volume shape
-	glLoadIdentity();
-	glOrtho(-2.0*64/48.0, 2.0*64/48.0, -2.0, 2.0, 0.1, 100);
-	glMatrixMode(GL_MODELVIEW); // position and aim the camera
-	glLoadIdentity();
-	gluLookAt(2.0, 10.0, 2.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0);
-	
-	glClear(GL_COLOR_BUFFER_BIT); // clear the screen
-	
-	
-	glRotatef((GLfloat) a, 0.0,1.0,0.0);
-	
-	//sphere
-    glColor3d(1,1,1);     	
-	glPushMatrix();	
-	glScaled(2,2,2);
-	glTranslated(0.0,0.4,0.0);	
-	glRotated(43,0,3,0);
-	glutSolidSphere(0.25, 10, 20);
-	glPopMatrix();
-    
-    glRotatef((GLfloat) a, 0.0,0.0,0.0);
-    glColor3d(0,0,0);
-    glPushMatrix();	
-	glTranslated(-0.3,0.35,0.0);	
-	glRotated(-53,0,3,0);
-	glutSolidSphere(0.1, 3, 8);
-	glPopMatrix();	
-	
-	glPushMatrix();	
-	glTranslated(0.2,1.5,0.0);	
-	glRotated(-41,0,3,0);
-	glutSolidSphere(0.1, 3, 8);
-	glPopMatrix();	
-	
-	//cone
-	glRotatef((GLfloat) a, 0.0,0.0,0.0);
-	glColor3d(1,0,0);
-	glPushMatrix();	
-	glScaled(2,2,2);
-	glTranslated(0.0,1,0.0);	
-	glRotated(-135,0,1,0);
-	glutSolidCone(0.2, 0.5, 10, 20);
-	glPopMatrix();
-	
-	
+     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+     glPushMatrix();
+     glMatrixMode(GL_MODELVIEW);
+     glLoadIdentity();
 
+     glTranslatef(0.0f, 0.0f, -8.0f);
+  
+//======Rotasi==========     
+	glRotatef(spin, 0.0, 0.1, 0.0); 
+
+//cahaya
+	GLfloat lightColor1[] = {1.0f, 1.0f, 1.0f, 1.0f };//0.0f, 0.0f, -8.0f
+     GLfloat lightPos1[] = {0.75, 0.40, 0.0,0.0};
+     glLightfv(GL_LIGHT1, GL_AMBIENT, lightColor1);
+     glLightfv(GL_LIGHT1, GL_POSITION, lightPos1);
+
+//+++++++tiang lampu+++++++
+	glPushMatrix();
+		glColor3f(0.3, 0.2, 0.1);       //glColor3f(0.4, 0.8, 0.1);-->warna hijau
+		glTranslatef(0.1, 0.8, 0.0);
+		glScalef(0.1, 2.40, 0.1);
+		glutSolidCube(0.5);
+	glPopMatrix();
+
+//++++++++++++++++dasar lampu++++++++++++++
+	glPushMatrix();
+		glColor3f(180, 180, 179);
+		glTranslatef(0.1, 0.1, 0.0);
+		glScalef(0.3, 0.04, 0.3);
+		glutSolidSphere(0.5, 30, 30);
+	glPopMatrix();
+
+//++++++++++++++++penyangga lampu++++++++++++++
+	glPushMatrix();
+		glColor3f(0.1, 0.1, 0.1);
+		glTranslatef(0.1, 0.35, 0.0);
+		glScalef(0.2, 0.99, 0.2);
+		glutSolidCube(0.5);
+	glPopMatrix();
+
+//++++++++++++++++penahan lampu1++++++++++++++
+	glPushMatrix();
+		glColor3f(0.3, 0.2, 0.1);
+		glTranslatef(0.35, 1.28, 0.0);
+		glScalef(1.5, 0.1, 0.1);
+		glutSolidCube(0.5);
+	glPopMatrix();
+
+//++++++++++++++++penahan lampu2++++++++++++++
+	glPushMatrix();
+		glColor3f(0.3, 0.2, 0.1);
+		glTranslatef(0.20, 1.15, 0.0);
+		glScalef(0.7, 0.1, 0.1);
+		glutSolidCube(0.5);
+	glPopMatrix();
+
+
+//++++++++++++++++penahan lampu3++++++++++++++
+	glPushMatrix();
+		glColor3f(0.3, 0.2, 0.1);
+		glTranslatef(0.20, 1.20, 0.0);
+		glScalef(0.1, 0.5, 0.1);
+		glutSolidCube(0.5);
+	glPopMatrix();
+
+//++++++++++++++++atap lampu++++++++++++++
+	glPushMatrix();
+		glColor3f(0.5, 0.3, 0.2);
+		glTranslatef(0.75, 1.23, 0.0);
+		glScalef(0.3, 0.04, 0.3);
+		glutSolidSphere(0.8, 210, 10);
+	glPopMatrix();
+
+//++++++++++++++paku penahan lampu+++++++++++
+	glPushMatrix();
+		glColor3f(180, 180, 179);
+		glTranslatef(0.75, 1.28, 0.0);
+		glScalef(0.3, 0.3, 0.3);
+		glutSolidSphere(0.10, 10, 10);
+	glPopMatrix();
+
+//++++++++++++++bola lampu+++++++++++
+	glPushMatrix();
+		glColor3f(1.0, 1.0, 0.0+lampu);
+		glTranslatef(0.75, 1.15, 0.0);
+		glScalef(0.8, 0.8, 0.8);
+		glutSolidSphere(0.10, 20, 20);
+	glPopMatrix();
+
+	glPopMatrix();
 	glFlush();
 }
-
-void reshape(int w, int h){
-glViewport(0, 0, (GLsizei) w, (GLsizei) h);
-glMatrixMode(GL_PROJECTION);
-glLoadIdentity();
-if (w <= h) {
-glOrtho(-1.5, 1.5, -1.5 * (GLfloat) h / (GLfloat) w, 1.5 * (GLfloat) h
-/ (GLfloat) w, -10.0, 10.0);
-} else {
-glOrtho(-1.5 * (GLfloat) w / (GLfloat) h, 1.5 * (GLfloat) w
-/ (GLfloat) h, -1.5, 1.5, -10.0, 10.0);
-}
-glMatrixMode(GL_MODELVIEW);
-glLoadIdentity();
-
-// glLoadIdentity();
-
+void reshape(int w, int h)
+{
+     glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+     glMatrixMode(GL_PROJECTION);
+     glLoadIdentity();
+     if (w<=h)
+		glOrtho(-10, 10, -10*(GLfloat)h/(GLfloat)w,   
+		10*(GLfloat)h/(GLfloat)w, -100.0, 100.0);
+     else
+		glOrtho(-1.5*(GLfloat)w/(GLfloat)h,   
+		1.5*(GLfloat)w/(GLfloat)h, -1.5, 1.5, -10.0, 10.0); 
+     glMatrixMode(GL_MODELVIEW);
+     glLoadIdentity();
 }
 
-void keyboard(unsigned char key, int x, int y){
-switch(key){
-case 'a' : a = (a+1) % 90;
-glutPostRedisplay();
-break;
-case 'A' : a = (a-1) %90;
-glutPostRedisplay();
-break;
-
-default : break;
+void init(void)
+{
+     glEnable(GL_DEPTH_TEST);
+     glEnable(GL_COLOR_MATERIAL);
+     glEnable(GL_LIGHTING);
+     glEnable(GL_LIGHT0);
+     
+     glEnable(GL_NORMALIZE);
+     glShadeModel(GL_SMOOTH);
+     GLfloat ambientColor[] = {0.3f, 0.3f, 0.3f, 1.0f};
+     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
+     GLfloat lightColor0[] = {1.0f, 1.0f, 1.0f, 1.0f};
+     GLfloat lightPos0[] = {1.0f, 1.0f, 1.0f, 1.0f};
+     glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor0);
+     glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
+     
 }
+
+void keyboard (unsigned char key, int x, int y)
+{
+	switch (key) {
+	case 'a':
+		spin = (spin + 5) % 360;
+		glutPostRedisplay();
+	break;
+	case'd':
+		spin = (spin - 5) % 360;
+		glutPostRedisplay();
+	break;
+	case 'q':
+		glEnable(GL_LIGHT1);
+		lampu = lampu + 0.4;
+		glutPostRedisplay();
+	break;
+	case 'w':
+		glDisable(GL_LIGHT1);
+		lampu = lampu - 0.4;
+		glutPostRedisplay();
+	break;
+	default:
+	break;
+	}
 }
 
-
-
-
-int main(int argc, char** argv){
-glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB );
-	glutInitWindowSize(640,480);
-	glutInitWindowPosition(100, 100);
-	glutCreateWindow("Tugas Bentuk 3D");
-	glutDisplayFunc(displayKepala);
-    glutKeyboardFunc(keyboard);
-	glClearColor(0,0,0,0);  
-	glViewport(0, 0, 640, 480);
-	glutMainLoop();
-
+int main(int argc, char** argv)
+{
+	glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(1200, 1024);
+    glutInitWindowPosition(200, 80);
+    glutCreateWindow("Taman Bermain");
+    init();
+    glutDisplayFunc(display);
+    glutReshapeFunc(reshape);
+	glutKeyboardFunc(keyboard);
+    //glutIdleFunc(berputar);
+    //glutInitializeFunc(Initialize);
+    glutMainLoop();
+    return 0;/* ISO C requires main to return int. */
 }
