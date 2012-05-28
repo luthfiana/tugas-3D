@@ -172,7 +172,7 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(1200, 1024);
     glutInitWindowPosition(200, 80);
-    glutCreateWindow("Taman Bermain");
+    glutCreateWindow("Lampu");
     init();
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
